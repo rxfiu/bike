@@ -1,0 +1,1 @@
+<?= anchor('go/dettaglio/'.($articoli[1]->id), "Prossimo articolo"); ?>

@@ -1,0 +1,40 @@
+body{
+    width: 90%; margin: auto;
+    background-color: gainsboro;
+    font-size: 150%;
+    font-family: verdana;
+}
+
+nav { position: relative; top: -2em; font-size: 75%;}
+nav p#utente {text-align: right;}
+nav a {
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+nav img{
+    vertical-align: middle;
+}
+article{
+    background-color: white;
+}
+table, td, th {
+    border: 2px solid green; padding: 5px;
+}
+p#messaggio{
+    font-size: 120%;
+}
+p#errore{
+    color: red;
+}
+p#download{
+    font-size: 120%;
+}
+p#download img{
+    vertical-align: middle;
+}
+footer{
+    margin-top: 50px;
+    border-top: 2px solid black;
+    margin-bottom: 50px;
+}
