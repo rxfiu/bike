@@ -16,5 +16,17 @@ class Negozio_model extends CI_Model{
         $query = $this->db->query($q, array($nome, $password));
         return $query->row();
     }
+
+    public function set_utente($nome,$password) {
+        $q = "INSERT INTO utenti (nome, password) VALUES (?, ?)";
+        $query = $this->db->query($q, array($nome, $password));
+        return $query->row();
+    }
+
+    public function exist_utente($nome){
+        $q = "SELECT nome FROM utenti WHERE nome = ?";
+        $query = $this->db->query($q, array($nome));
+        return $query->row();
+    }
 }
 ?>

@@ -17,7 +17,7 @@
 <?= anchor('go/faq', 'Domande Frequenti')?>
 <?= anchor('go/catalogo', 'Catalogo')?>
 <?= anchor('go/riservato', 'Riservato')?>
-<!--<?= anchor('go/carrello', 'Carrello')?>-->
+<?= anchor('go/carrello', 'Carrello')?>
 <?= anchor('go/carrello', img('images/carrello-della-spesa.png'))?>
 <span>
     <?= $this->session->utente->nome?>

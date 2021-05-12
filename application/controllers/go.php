@@ -63,9 +63,30 @@ class Go extends CI_Controller {
         $this->load->view('footer');
     }
 
+    public function rimuoviDettaglio($id) {
+        // $carrello = $this->session->carrello;
+        // $this->session->carrello = array();
+        // for($i = 0; $i < count($carrello); $i++) {
+        //     if($carrello[$i]->id == $id) {
+        //         unset($carrello[$i]);
+        //         break;
+        //     }
+        // }
+        // foreach($carrello as $dettaglio) {
+        //     $this->session->carrello[] = $dettaglio;
+        // }
+        redirect("go/carrello");
+    }
+
     public function entra(){
         $this->load->view('header');
         $this->load->view('login');
+        $this->load->view('footer');
+    }
+
+    public function registrati() {
+        $this->load->view('header');
+        $this->load->view('signin');
         $this->load->view('footer');
     }
     
@@ -92,6 +113,34 @@ class Go extends CI_Controller {
             $data['messaggio']="L'utente non esiste!";
             $this->load->view('header');
             $this->load->view('errore', $data);
+            $this->load->view('footer');
+        }
+    }
+
+    public function controllaSignin(){
+        //acquisisco i dati
+        $nome = $this->input->post('nome');
+        $password = $this->input->post('password');
+        //interrogo il modello
+        $exists = $this->Negozio_model->exist_utente($nome); 
+        // $utente = $this->Negozio_model->get_utente($nome,$password);
+        //controllo se l'utente esiste
+        if(isset($exists)){
+            $data['messaggio']="L'utente esiste!";
+            $this->load->view('header');
+            $this->load->view('errore', $data);
+            $this->load->view('footer');
+            redirect('go/index');
+        }
+        else {
+            // $utente = stdClass();
+            // $utente->nome = $nome;
+            // $utente->password = $password;
+            $this->Negozio_model->set_utente($nome,$password);
+            $utente = $this->Negozio_model->get_utente($nome,$password);
+            $this->session->utente = $utente;
+            $this->load->view('header');
+            $this->load->view('home');
             $this->load->view('footer');
         }
     }

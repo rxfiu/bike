@@ -4,7 +4,8 @@
     <?php foreach($articoli as $articolo): ?>
     <p> 
         <?= $articolo->id?>
-        <?= anchor('go/dettaglio/'.$articolo->id, $articolo->nome)?>
+        <?= anchor('go/dettaglio/'.$articolo->id, $articolo->nome)?> 
+        <?= anchor('go/mettiNelCarrello/'.$articolo->id, "Aggiungi al carrello")?>
     </p>
 <?php endforeach ?>
 </main>
