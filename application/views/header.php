@@ -8,8 +8,11 @@
 <body>
 <nav>
 <p id="utente">
+<?php if($this->session->utente->nome == "anonimo") :?>
 <?= anchor('go/entra', 'Entra')?>   /   <?= anchor('go/registrati', 'Registrati') ?>
-<?= anchor('go/esci', 'Esci')?>
+<?php else: ?>
+<?= anchor('go/esci', 'Esci') ?>
+<?php endif; ?>
 </p>
 
 <p>

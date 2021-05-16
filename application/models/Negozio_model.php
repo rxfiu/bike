@@ -11,21 +11,20 @@ class Negozio_model extends CI_Model{
         return $query->row();
     }
 
-    public function get_utente($nome,$password){
-        $q = "SELECT * FROM utenti WHERE nome = ? AND password = ?";
-        $query = $this->db->query($q, array($nome, $password));
+    public function get_utente($nome, $email, $password){
+        $q = "SELECT * FROM utenti WHERE nome = ? AND email = ? AND password = ?";
+        $query = $this->db->query($q, array($nome, $email, $password));
         return $query->row();
     }
 
-    public function set_utente($nome,$password) {
-        $q = "INSERT INTO utenti (nome, password) VALUES (?, ?)";
-        $query = $this->db->query($q, array($nome, $password));
-        return $query->row();
+    public function set_utente($nome, $password, $email) {
+        $q = "INSERT INTO utenti (nome, password, ruolo, email) VALUES (?, ?, 'utente', ?)";
+        $query = $this->db->query($q, array($nome, $password, $email));
     }
 
-    public function exist_utente($nome){
-        $q = "SELECT nome FROM utenti WHERE nome = ?";
-        $query = $this->db->query($q, array($nome));
+    public function exist_utente($email){
+        $q = "SELECT nome FROM utenti WHERE email = ?";
+        $query = $this->db->query($q, array($email));
         return $query->row();
     }
 }

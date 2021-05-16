@@ -99,15 +99,14 @@ class Go extends CI_Controller {
     public function controllaLogin(){
         //acquisisco i dati
         $nome = $this->input->post('nome');
+        $email = $this->input->post('email');
         $password = $this->input->post('password');
         //interrogo il modello
-        $utente = $this->Negozio_model->get_utente($nome,$password);
+        $utente = $this->Negozio_model->get_utente($nome, $email, $password);
         //controllo se l'utente esiste
         if(isset($utente)){
             $this->session->utente = $utente;
-            $this->load->view('header');
-            $this->load->view('home');
-            $this->load->view('footer');
+            redirect('go/index');
         }
         else {
             $data['messaggio']="L'utente non esiste!";
@@ -117,34 +116,37 @@ class Go extends CI_Controller {
         }
     }
 
+    private function redirectAfterSignIn($msg) {
+        $data['messaggio']= $msg;
+            $this->load->view('header');
+            $this->load->view('errore', $data);
+            $this->load->view('footer');
+            header("refresh:1;url=index");
+    }
+
     public function controllaSignin(){
         //acquisisco i dati
         $nome = $this->input->post('nome');
         $password = $this->input->post('password');
+        $email = $this->input->post('email');
         //interrogo il modello
-        $exists = $this->Negozio_model->exist_utente($nome); 
+        $exists = $this->Negozio_model->exist_utente($email); 
         // $utente = $this->Negozio_model->get_utente($nome,$password);
         //controllo se l'utente esiste
         if(isset($exists)){
-            $data['messaggio']="L'utente esiste!";
-            $this->load->view('header');
-            $this->load->view('errore', $data);
-            $this->load->view('footer');
-            redirect('go/index');
+            $this->redirectAfterSignIn("L'utente esiste! Reindirizzando...");
         }
         else {
             // $utente = stdClass();
             // $utente->nome = $nome;
             // $utente->password = $password;
-            $this->Negozio_model->set_utente($nome,$password);
-            $utente = $this->Negozio_model->get_utente($nome,$password);
+            $this->Negozio_model->set_utente($nome, $email, $password);
+            $utente = $this->Negozio_model->get_utente($nome, $email, $password);
             $this->session->utente = $utente;
-            $this->load->view('header');
-            $this->load->view('home');
-            $this->load->view('footer');
+            $this->redirectAfterSignIn("Utente creato! Reindirizzando...");
         }
     }
-
+    
     public function riservato(){
         $this->load->view('header');
         
