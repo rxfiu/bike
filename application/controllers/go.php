@@ -98,11 +98,10 @@ class Go extends CI_Controller {
 
     public function controllaLogin(){
         //acquisisco i dati
-        $nome = $this->input->post('nome');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         //interrogo il modello
-        $utente = $this->Negozio_model->get_utente($nome, $email, $password);
+        $utente = $this->Negozio_model->get_utente($email, $password);
         //controllo se l'utente esiste
         if(isset($utente)){
             $this->session->utente = $utente;
@@ -134,16 +133,19 @@ class Go extends CI_Controller {
         // $utente = $this->Negozio_model->get_utente($nome,$password);
         //controllo se l'utente esiste
         if(isset($exists)){
-            $this->redirectAfterSignIn("L'utente esiste! Reindirizzando...");
+            $this->redirectAfterSignIn("Esiste già un utente con la stessa email! Reindirizzando...");
         }
         else {
             // $utente = stdClass();
             // $utente->nome = $nome;
             // $utente->password = $password;
             $this->Negozio_model->set_utente($nome, $email, $password);
-            $utente = $this->Negozio_model->get_utente($nome, $email, $password);
-            $this->session->utente = $utente;
-            $this->redirectAfterSignIn("Utente creato! Reindirizzando...");
+            $utente = $this->Negozio_model->get_utente($email, $password);
+            $this->session->utente->nome = $utente->nome;
+            $this->session->utente->email = $utente->email;
+            $this->session->utente->password = $utente->password;
+            $this->session->utente->ruolo = $utente->ruolo;
+            $this->redirectAfterSignIn("Utente registrato correttamente! Reindirizzando...");
         }
     }
     

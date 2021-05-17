@@ -12,8 +12,8 @@ class Negozio_model extends CI_Model{
     }
 
     public function get_utente($nome, $email, $password){
-        $q = "SELECT * FROM utenti WHERE nome = ? AND email = ? AND password = ?";
-        $query = $this->db->query($q, array($nome, $email, $password));
+        $q = "SELECT * FROM utenti WHERE AND email = ? AND password = ?";
+        $query = $this->db->query($q, array($email, $password));
         return $query->row();
     }
 
